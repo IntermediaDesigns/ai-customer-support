@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "accept-language": "^3.0.18",
-    "axios": "^1.7.3",
     "crypto-js": "^4.2.0",
     "firebase": "^10.12.5",
     "firestore": "^1.1.6",
