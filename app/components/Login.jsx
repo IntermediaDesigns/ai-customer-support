@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "../../auth";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 export default function Login({ searchParams }) {
   const [username, setUsername] = useState("");
@@ -69,6 +70,7 @@ export default function Login({ searchParams }) {
           </p>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

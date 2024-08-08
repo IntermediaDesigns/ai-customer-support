@@ -28,13 +28,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav>
+    <nav id="navLinks">
       <a href="/">
         Home
       </a>
       <div>
         {user ? (
-          <div>
+          <div id="navLinks">
             <a
               id="navBtn"
               href="/dashboard"
@@ -49,7 +49,7 @@ export default function Navbar() {
             </button>
           </div>
         ) : (
-          <div>
+          <div id="navLinks">
             <a
               id="navBtn"
               href="/login"

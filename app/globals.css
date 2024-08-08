@@ -9,4 +9,43 @@
   box-sizing: border-box;
 }
 
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+}
 
+/* Navbar */
+nav {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+nav button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+nav button:hover {
+  color: blue;
+}
+
+#navLinks {
+  display: flex;
+  gap: 1rem;
+}
+
+#navLinks a:hover {
+  color: blue;
+}

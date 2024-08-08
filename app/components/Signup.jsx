@@ -4,6 +4,7 @@ import { signUp } from "../../auth";
 import { useRouter } from "next/navigation";
 import Navbar from "./Navbar";
 import "../globals.css";
+import Footer from "./Footer";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -74,6 +75,7 @@ export default function Signup() {
           </p>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
