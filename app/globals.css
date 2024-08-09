@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 * body {
-  font-family: "Nunito", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -22,16 +21,17 @@ footer {
 
 /* Navbar */
 nav {
-  background-color: #333;
+  background-color: #191A1A;
   color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+ 
 }
 
 nav button {
-  background-color: #333;
+  background-color: transparent;
   color: #fff;
   border: none;
   cursor: pointer;

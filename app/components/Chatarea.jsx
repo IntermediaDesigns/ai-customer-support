@@ -4,17 +4,17 @@ import { Menu, Send } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { Drawer } from "antd";
 import { useChat } from "ai/react";
-import Footer from "./Footer";
 import Messages from "./Messages";
 
 function Chatarea() {
   const [showSidebar, setShowSidebar] = React.useState(false);
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    keepLastMessageOnError: true,
-  });
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useChat({
+      keepLastMessageOnError: true,
+    });
 
   return (
-    <div className="bg-chatarea h-full p-5 flex flex-col pb-20">
+    <div className="bg-chatarea h-full p-5 flex flex-col">
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <Menu
@@ -27,8 +27,7 @@ function Chatarea() {
         <p>Welcome, User!</p>
       </div>
 
-      <div className="flex flex-col justify-between flex-1">
-        
+      <div className="flex flex-col justify-between flex-1 pb-16">
         <Messages messages={messages} isLoading={isLoading} />
 
         <form onSubmit={handleSubmit} className="relative">
@@ -60,5 +59,7 @@ function Chatarea() {
     </div>
   );
 }
+
+
 
 export default Chatarea;

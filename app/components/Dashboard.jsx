@@ -1,12 +1,11 @@
 import React from "react";
-import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import Chatarea from "./Chatarea";
 
 export default function Dashboard() {
   return (
     <>
-      <div className="flex h-screen">
+      <div className="flex h-screen ">
         <div className="hidden lg:flex">
           <Sidebar />
         </div>
@@ -15,8 +14,6 @@ export default function Dashboard() {
           <Chatarea />
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }
