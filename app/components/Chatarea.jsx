@@ -4,24 +4,25 @@ import { Menu, Send, Save, Plus } from "lucide-react";
 import Messages from "./Messages";
 import Sidebar from "./Sidebar";
 import { Drawer } from "antd";
-import { getCurrentUser } from "../../auth";
 import { useChat } from "ai/react";
 import {
   addMessageToChat,
   createNewChat,
   getChatMessages,
-  getSavedChats,
   saveChat,
   deleteChat,
 } from "../../firebaseServices";
 
-function Chatarea() {
+function Chatarea({
+  currentChatId,
+  setCurrentChatId,
+  savedChats,
+  onSaveChat,
+  onDeleteChat,
+  isAuthenticated,
+}) {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
-  const [currentChatId, setCurrentChatId] = useState(null);
   const [localMessages, setLocalMessages] = useState([]);
-  const [savedChats, setSavedChats] = useState([]);
 
   const {
     messages,
@@ -41,28 +42,9 @@ function Chatarea() {
   });
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const user = await getCurrentUser();
-        setIsAuthenticated(!!user);
-        if (user) {
-          const newChatId = await createNewChat();
-          setCurrentChatId(newChatId);
-          const chats = await getSavedChats();
-          setSavedChats(chats);
-        }
-      } catch (error) {
-        console.error("Error checking authentication:", error);
-      } finally {
-        setAuthChecked(true);
-      }
-    };
-    checkAuth();
-  }, []);
-
-  useEffect(() => {
     const loadMessages = async () => {
       if (currentChatId) {
+        setLocalMessages([]); // Clear local messages
         const chatMessages = await getChatMessages(currentChatId);
         setLocalMessages(chatMessages);
         setMessages(chatMessages);
@@ -85,28 +67,10 @@ function Chatarea() {
 
   const handleNewChat = async (chatId) => {
     setCurrentChatId(chatId);
+    setLocalMessages([]); // Clear local messages
     const chatMessages = await getChatMessages(chatId);
     setLocalMessages(chatMessages);
     setMessages(chatMessages);
-  };
-
-  const handleDeleteChat = async (deletedChatId) => {
-    try {
-      await deleteChat(deletedChatId);
-      const updatedChats = savedChats.filter(
-        (chat) => chat.id !== deletedChatId
-      );
-      setSavedChats(updatedChats);
-      if (deletedChatId === currentChatId) {
-        const newChatId = await createNewChat();
-        setCurrentChatId(newChatId);
-        setLocalMessages([]);
-        setMessages([]);
-      }
-    } catch (error) {
-      console.error("Error deleting chat:", error);
-      // Optionally, you can show an error message to the user here
-    }
   };
 
   const handleSaveChat = async () => {
@@ -120,15 +84,14 @@ function Chatarea() {
         const title =
           localMessages[0].content.split(" ").slice(0, 5).join(" ") + "...";
 
-        setSavedChats((prevChats) => [
-          ...prevChats.filter((chat) => chat.id !== currentChatId),
-          {
-            id: currentChatId,
-            title,
-            lastUpdated: new Date(),
-            messages: messagesToSave,
-          },
-        ]);
+        const newChat = {
+          id: currentChatId,
+          title,
+          lastUpdated: new Date(),
+          messages: messagesToSave,
+        };
+
+        onSaveChat(newChat);
 
         alert("Chat saved successfully!");
 
@@ -157,10 +120,6 @@ function Chatarea() {
       alert("Failed to create a new chat. Please try again.");
     }
   };
-
-  if (!authChecked) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="bg-chatarea h-full p-5 flex flex-col">
@@ -199,12 +158,12 @@ function Chatarea() {
         <Sidebar
           setShowSidebar={setShowSidebar}
           onChatSelect={handleNewChat}
-          onDeleteChat={handleDeleteChat}
+          onDeleteChat={onDeleteChat}
           currentChatId={currentChatId}
-          savedChats={savedChats || []}
+          savedChats={savedChats}
         />
       </Drawer>
-      <div className="block h-[85vh]">
+      <div className="flex-1 overflow-y-auto mt-4">
         <Messages
           messages={localMessages}
           isLoading={isLoading}
@@ -229,7 +188,7 @@ function Chatarea() {
           type="submit"
           className={`p-2 text-white rounded ${
             isAuthenticated
-              ? "bg-blue-500 hover:bg-blue-600"
+              ? "bg-yellow-500 hover:bg-yellow-600"
               : "bg-gray-400 cursor-not-allowed"
           }`}
           disabled={!isAuthenticated || isLoading}

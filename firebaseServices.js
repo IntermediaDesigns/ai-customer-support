@@ -38,40 +38,44 @@ export const addMessageToChat = async (chatId, content, role) => {
   const newMessage = {
     content,
     role,
-    timestamp: new Date().toISOString(),
+    timestamp: serverTimestamp(),
   };
 
-  await addDoc(messagesRef, newMessage);
+  const docRef = await addDoc(messagesRef, newMessage);
 
   await setDoc(chatRef, { lastUpdated: serverTimestamp() }, { merge: true });
 
-  return newMessage;
+  return {
+    id: docRef.id,
+    ...newMessage,
+    timestamp: new Date(), // Return a JavaScript Date object for immediate use
+  };
 };
-
-
 
 export const getChatMessages = async (chatId) => {
   const user = auth.currentUser;
   if (!user) throw new Error("No user logged in");
 
   const chatRef = doc(db, "users", user.uid, "chats", chatId);
-  const chatDoc = await getDoc(chatRef);
+  const messagesRef = collection(chatRef, "messages");
 
-  if (!chatDoc.exists()) {
-    console.error(`Chat with ID ${chatId} does not exist for user ${user.uid}`);
-    throw new Error("Chat does not exist");
-  }
+  const messagesQuery = query(messagesRef, orderBy("timestamp", "asc"));
+  const querySnapshot = await getDocs(messagesQuery);
 
-  const chatData = chatDoc.data();
-  const messages = chatData.messages || [];
+  const messages = querySnapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      content: data.content,
+      role: data.role,
+      timestamp:
+        data.timestamp instanceof Timestamp
+          ? data.timestamp.toDate()
+          : new Date(data.timestamp),
+    };
+  });
 
-  // Convert Firestore Timestamps to JavaScript Date objects
-  const messagesWithDates = messages.map((msg) => ({
-    ...msg,
-    timestamp: msg.timestamp.toDate(),
-  }));
-
-  return messagesWithDates;
+  return messages;
 };
 
 export const deleteChat = async (chatId) => {
@@ -82,20 +86,48 @@ export const deleteChat = async (chatId) => {
   await deleteDoc(chatRef);
 };
 
-
 export const saveChat = async (chatId, messages) => {
   const user = auth.currentUser;
   if (!user) throw new Error("No user logged in");
 
   const chatRef = doc(db, "users", user.uid, "chats", chatId);
 
-  // Convert message timestamps to Firestore Timestamps
-  const messagesWithTimestamps = messages.map((msg) => ({
-    ...msg,
-    timestamp: Timestamp.fromDate(new Date(msg.timestamp)),
-  }));
+  // Get the first message content for the title
+  const title =
+    messages.length > 0
+      ? messages[0].content.split(" ").slice(0, 5).join(" ") + "..."
+      : "New Chat";
 
-  await setDoc(chatRef, { messages: messagesWithTimestamps, lastUpdated: serverTimestamp() }, { merge: true });
+  await setDoc(
+    chatRef,
+    {
+      isSaved: true,
+      title: title,
+      lastUpdated: serverTimestamp(),
+    },
+    { merge: true }
+  );
+
+  // Save messages to subcollection
+  const messagesRef = collection(chatRef, "messages");
+
+  // Delete existing messages
+  const existingMessages = await getDocs(messagesRef);
+  existingMessages.forEach(async (doc) => {
+    await deleteDoc(doc.ref);
+  });
+
+  // Add new messages
+  for (const message of messages) {
+    await addDoc(messagesRef, {
+      content: message.content,
+      role: message.role,
+      timestamp:
+        message.timestamp instanceof Date
+          ? Timestamp.fromDate(message.timestamp)
+          : serverTimestamp(),
+    });
+  }
 };
 
 export const getSavedChats = async () => {
