@@ -69,3 +69,14 @@ nav button:hover {
   padding: 0 !important;
   margin: 0 !important;
 }
+
+/* Markdown */
+.markdown ul,
+.markdown ol, .markdown li {
+  margin-bottom: 1em;
+  list-style: circle;
+}
+
+.markdown li {
+  margin-left: 2em;
+}
