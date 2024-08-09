@@ -11,10 +11,6 @@ import CryptoJS from "crypto-js";
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// const generateHashedEmail = (username) => {
-//   const fakeEmail = `${username.replace(/\s+/g, "")}@example.com`;
-//   return CryptoJS.SHA256(fakeEmail).toString() + "@hashed.com";
-// };
 const generateHashedEmail = (username) => {
   const fakeEmail = `${username.replace(/\s+/g, "")}@example.com`;
   const hashedEmail = CryptoJS.SHA256(fakeEmail).toString() + "@hashed.com";
@@ -22,28 +18,6 @@ const generateHashedEmail = (username) => {
   return hashedEmail;
 };
 
-// export const signUp = async (username, password) => {
-//   try {
-//     const hashedEmail = generateHashedEmail(username);
-//     const userCredential = await createUserWithEmailAndPassword(
-//       auth,
-//       hashedEmail,
-//       password
-//     );
-//     const user = userCredential.user;
-
-//     // Store the username and hashed email in Firestore
-//     await setDoc(doc(db, "users", user.uid), {
-//       username: username,
-//       hashedEmail: hashedEmail,
-//     });
-
-//     return user;
-//   } catch (error) {
-//     console.error("Error signing up: ", error);
-//     throw error;
-//   }
-// };
 export const signUp = async (username, password) => {
   try {
     const hashedEmail = generateHashedEmail(username);
@@ -72,20 +46,7 @@ export const signUp = async (username, password) => {
   }
 };
 
-// export const signIn = async (username, password) => {
-//   try {
-//     const hashedEmail = generateHashedEmail(username);
-//     const userCredential = await signInWithEmailAndPassword(
-//       auth,
-//       hashedEmail,
-//       password
-//     );
-//     return userCredential.user;
-//   } catch (error) {
-//     console.error("Error signing in: ", error);
-//     throw error;
-//   }
-// };
+
 export const signIn = async (username, password) => {
   try {
     const hashedEmail = generateHashedEmail(username);
