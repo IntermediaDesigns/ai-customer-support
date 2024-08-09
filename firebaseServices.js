@@ -12,6 +12,7 @@ import {
   orderBy,
   limit,
   Timestamp,
+  writeBatch,
 } from "firebase/firestore";
 import { db, auth } from "./firebase";
 
@@ -83,7 +84,20 @@ export const deleteChat = async (chatId) => {
   if (!user) throw new Error("No user logged in");
 
   const chatRef = doc(db, "users", user.uid, "chats", chatId);
-  await deleteDoc(chatRef);
+
+  // Delete all messages in the chat
+  const messagesRef = collection(chatRef, "messages");
+  const messagesSnapshot = await getDocs(messagesRef);
+  const batch = writeBatch(db);
+  messagesSnapshot.forEach((doc) => {
+    batch.delete(doc.ref);
+  });
+
+  // Delete the chat document
+  batch.delete(chatRef);
+
+  // Commit the batch
+  await batch.commit();
 };
 
 export const saveChat = async (chatId, messages) => {

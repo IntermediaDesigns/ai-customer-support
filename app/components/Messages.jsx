@@ -13,7 +13,7 @@ function Messages({ messages, isLoading, chatId }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const formatTimestamp = (timestamp) => {
-    if (!timestamp) return '';
+    if (!timestamp) return "";
     const date = new Date(timestamp);
     return date.toLocaleString();
   };
@@ -85,7 +85,7 @@ function Messages({ messages, isLoading, chatId }) {
 
   return (
     <div className="flex flex-col gap-7 text-gray-300 mt-7 text-sm">
-      {messages.map((message, index) => {
+      {messages.filter(message => message != null).map((message, index) => {
         if (message.role === "user") {
           return (
             <div key={message.id || index} className="flex justify-end">

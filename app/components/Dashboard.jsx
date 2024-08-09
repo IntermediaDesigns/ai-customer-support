@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Chatarea from "./Chatarea";
 import Navbar from "./Navbar";
-import { getSavedChats, createNewChat } from "../../firebaseServices";
+import { getSavedChats, createNewChat, deleteChat } from "../../firebaseServices";
 import { getCurrentUser } from "../../auth";
 
 export default function Dashboard({ color }) {
@@ -36,10 +36,16 @@ export default function Dashboard({ color }) {
   };
 
   const handleDeleteChat = async (deletedChatId) => {
-    setSavedChats((prevChats) => prevChats.filter(chat => chat.id !== deletedChatId));
-    if (deletedChatId === currentChatId) {
-      const newChatId = await createNewChat();
-      setCurrentChatId(newChatId);
+    try {
+      await deleteChat(deletedChatId);
+      setSavedChats((prevChats) => prevChats.filter(chat => chat.id !== deletedChatId));
+      if (deletedChatId === currentChatId) {
+        const newChatId = await createNewChat();
+        setCurrentChatId(newChatId);
+      }
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+      alert("Failed to delete chat. Please try again.");
     }
   };
 

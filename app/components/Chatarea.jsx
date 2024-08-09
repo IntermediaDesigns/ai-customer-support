@@ -12,6 +12,7 @@ import {
   saveChat,
   deleteChat,
 } from "../../firebaseServices";
+// import { delay } from '../../utils';
 
 function Chatarea({
   currentChatId,
@@ -25,21 +26,21 @@ function Chatarea({
   const [localMessages, setLocalMessages] = useState([]);
 
   const {
-  messages,
-  input,
-  handleInputChange,
-  handleSubmit,
-  isLoading,
-  setMessages,
-} = useChat({
-  keepLastMessageOnError: true,
-  onFinish: async (message) => {
-    if (currentChatId) {
-      await addMessageToChat(currentChatId, message.content, message.role);
-      setLocalMessages((prevMessages) => [...prevMessages, message]);
-    }
-  },
-});
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+    setMessages,
+  } = useChat({
+    keepLastMessageOnError: true,
+    onFinish: async (message) => {
+      if (currentChatId) {
+        await addMessageToChat(currentChatId, message.content, message.role);
+        setLocalMessages((prevMessages) => [...prevMessages, message]);
+      }
+    },
+  });
 
   useEffect(() => {
     const loadMessages = async () => {
@@ -59,6 +60,11 @@ function Chatarea({
       const userMessage = { role: "user", content: input };
       setLocalMessages((prevMessages) => [...prevMessages, userMessage]);
       await addMessageToChat(currentChatId, input, "user");
+
+      // Clear input immediately after sending
+      handleInputChange({ target: { value: "" } });
+
+      // Use handleSubmit to trigger AI response
       await handleSubmit(e);
     } else {
       alert("Please log in to send messages.");
