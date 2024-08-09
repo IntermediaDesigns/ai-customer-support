@@ -49,3 +49,12 @@ nav button:hover {
 #navLinks a:hover {
   color: blue;
 }
+
+/* Sidebar Drawer */
+.ant-drawer-content {
+  background-color: #202222 !important;
+}
+
+.anticon-close {
+  color: #fff !important;
+}

@@ -2,14 +2,21 @@
 
 import React from "react";
 import Footer from "./Footer";
+import Sidebar from "./Sidebar";
+import Chatarea from "./Chatarea";
 
 export default function Dashboard() {
   return (
     <>
-      <section>
-        <h1>Dashboard</h1>
-        {/* Your chatbot interface goes here */}
-      </section>
+      <div className="flex h-screen">
+        <div className="hidden lg:flex">
+          <Sidebar />
+        </div>
+
+        <div className="flex-1 h-full">
+          <Chatarea />
+        </div>
+      </div>
 
       <Footer />
     </>
