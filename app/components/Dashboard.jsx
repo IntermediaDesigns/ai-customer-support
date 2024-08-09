@@ -12,7 +12,7 @@ export default function Dashboard({ color }) {
         </div>
 
         <div className="flex-1 h-screen overflow-hidden">
-          <div className="hidden md:block">
+          <div className="hidden md:block sm:block">
             <Navbar color={`flex `}  />
           </div>
           <Chatarea />
