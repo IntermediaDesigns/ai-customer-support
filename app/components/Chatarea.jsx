@@ -48,7 +48,7 @@ function Chatarea() {
 
   return (
     <div className="bg-chatarea h-full p-5 flex flex-col">
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap">
         <div className="flex items-center gap-2">
           <Menu
             size={20}
@@ -57,12 +57,16 @@ function Chatarea() {
           />
           <h1 className="text-xl font-bold text-yellow-500">AI Chatbot</h1>
         </div>
-        <p className="text-gray-300 text-lg tracking-wider">
-          Welcome, <span className="text-yellow-500 ">{username}</span>! <span className="text-gray-500 text-sm">{authStatus}</span>
-        </p>
+        <div>
+          <p className="text-gray-300 text-lg tracking-wider flex items-center gap-1 flex-wrap">
+            Welcome, <span className="text-yellow-500 ">{username}</span>!
+          </p>
+          <span className="text-gray-500 text-sm flex justify-end">{authStatus}</span>
+        </div>
       </div>
       <Drawer
-        // title="Chatbot"
+        className="text-yellow-500"
+        title="AI Chatbot"
         placement="left"
         closable={true}
         onClose={() => setShowSidebar(false)}
@@ -70,7 +74,7 @@ function Chatarea() {
       >
         <Sidebar setShowSidebar={setShowSidebar} />
       </Drawer>
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-0 h-[85vh] ">
         <Messages messages={messages} />
       </div>
       <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-4">

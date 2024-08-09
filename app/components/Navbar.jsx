@@ -28,7 +28,7 @@ export default function Navbar({ color }) {
   };
 
   return (
-    <nav id="navLinks" className={` ${color}`}>
+    <nav id="navLinks" className={` ${color} border-b-2 border-gray-800`}>
       <a href="/">Home</a>
       <div>
         {user ? (

@@ -5,8 +5,9 @@ import {
   signOut,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
-import { app } from "./firebase"; // Make sure this path is correct
+import { app } from "./firebase";
 import CryptoJS from "crypto-js";
+
 
 const auth = getAuth(app);
 const db = getFirestore(app);
