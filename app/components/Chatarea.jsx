@@ -25,21 +25,21 @@ function Chatarea({
   const [localMessages, setLocalMessages] = useState([]);
 
   const {
-    messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-    isLoading,
-    setMessages,
-  } = useChat({
-    keepLastMessageOnError: true,
-    onFinish: async (message) => {
-      if (currentChatId) {
-        await addMessageToChat(currentChatId, message.content, message.role);
-        setLocalMessages((prevMessages) => [...prevMessages, message]);
-      }
-    },
-  });
+  messages,
+  input,
+  handleInputChange,
+  handleSubmit,
+  isLoading,
+  setMessages,
+} = useChat({
+  keepLastMessageOnError: true,
+  onFinish: async (message) => {
+    if (currentChatId) {
+      await addMessageToChat(currentChatId, message.content, message.role);
+      setLocalMessages((prevMessages) => [...prevMessages, message]);
+    }
+  },
+});
 
   useEffect(() => {
     const loadMessages = async () => {
