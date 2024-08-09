@@ -2,7 +2,9 @@ import React from 'react'
 
 function Savedchats() {
   return (
-    <div>Savedchats</div>
+    <div className='mt-4'>
+        <p className='text-white font-semibold tracking-wider text-xl'>Saved Chats</p>
+    </div>
   )
 }
 

@@ -7,7 +7,7 @@ export default function Dashboard({ color }) {
   return (
     <>
       <div className="flex h-screen ">
-        <div className="hidden lg:flex">
+        <div className="w-80 hidden lg:flex">
           <Sidebar />
         </div>
 

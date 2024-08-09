@@ -1,6 +1,7 @@
 import React from "react";
 import { Plus } from "lucide-react";
 import Navbar from "./Navbar";
+import Savedchats from "./Savedchats";
 
 const Sidebar = ({ setShowSidebar = () => {} }) => {
   return (
@@ -12,6 +13,7 @@ const Sidebar = ({ setShowSidebar = () => {} }) => {
         <Plus size={15} />
         New Chat
       </div>
+      <Savedchats />
     </div>
   );
 };
