@@ -48,7 +48,7 @@ export const addMessageToChat = async (chatId, content, role) => {
   return {
     id: docRef.id,
     ...newMessage,
-    timestamp: new Date(), // Return a JavaScript Date object for immediate use
+    timestamp: new Date(),
   };
 };
 
@@ -58,19 +58,20 @@ export const getChatMessages = async (chatId) => {
 
   const chatRef = doc(db, "users", user.uid, "chats", chatId);
   const messagesRef = collection(chatRef, "messages");
-  
+
   const messagesQuery = query(messagesRef, orderBy("timestamp", "asc"));
   const querySnapshot = await getDocs(messagesQuery);
-  
-  const messages = querySnapshot.docs.map(doc => {
+
+  const messages = querySnapshot.docs.map((doc) => {
     const data = doc.data();
     return {
       id: doc.id,
       content: data.content,
       role: data.role,
-      timestamp: data.timestamp instanceof Timestamp 
-        ? data.timestamp.toDate() 
-        : new Date(data.timestamp),
+      timestamp:
+        data.timestamp instanceof Timestamp
+          ? data.timestamp.toDate()
+          : new Date(data.timestamp),
     };
   });
 
@@ -91,7 +92,6 @@ export const saveChat = async (chatId, messages) => {
 
   const chatRef = doc(db, "users", user.uid, "chats", chatId);
 
-  // Get the first message content for the title
   const title =
     messages.length > 0
       ? messages[0].content.split(" ").slice(0, 5).join(" ") + "..."
@@ -107,16 +107,13 @@ export const saveChat = async (chatId, messages) => {
     { merge: true }
   );
 
-  // Save messages to subcollection
   const messagesRef = collection(chatRef, "messages");
 
-  // Delete existing messages
   const existingMessages = await getDocs(messagesRef);
   existingMessages.forEach(async (doc) => {
     await deleteDoc(doc.ref);
   });
 
-  // Add new messages
   for (const message of messages) {
     await addDoc(messagesRef, {
       content: message.content,
