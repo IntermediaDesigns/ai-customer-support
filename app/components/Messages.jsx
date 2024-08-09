@@ -6,9 +6,10 @@ import rehypeRaw from "rehype-raw";
 import { getCurrentUser, getUsername } from "../../auth"; // Make sure to import getUsername
 
 function Messages({ messages, isLoading }) {
-  const [username, setUsername] = useState("User");
+  const [username, setUsername] = useState("Guest");
   const [authStatus, setAuthStatus] = useState("Checking...");
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const CustomMarkdown = ({ content }) => {
     const formattedContent = content.split("\n\n").join("\n\n<br />\n\n");
@@ -27,6 +28,7 @@ function Messages({ messages, isLoading }) {
           const fetchedUsername = await getUsername(user.uid);
           setUsername(fetchedUsername || "User");
           setAuthStatus("Authenticated");
+          setIsAuthenticated(true);
         } else {
           setAuthStatus("Not Authenticated");
         }
@@ -50,10 +52,12 @@ function Messages({ messages, isLoading }) {
       <div className="h-[75vh] flex items-center justify-center">
         <div className="flex flex-col text-gray-400 text-xl font-semibold tracking-wide">
           <span>
-            Hey there <span className="text-yellow-500 tracking-wider">{username}</span>!
+            Hello, <span className="text-yellow-500 tracking-wider">{username}</span>!
           </span>
           <span>
-            I am your personal AI Chatbot assistant. How can I help you today?
+            {isAuthenticated
+              ? "I am your personal AI Chatbot assistant. How can I help you today?"
+              : "I am your personal assistant, do you need help? If so, please log in so I can assist you."}
           </span>
         </div>
       </div>

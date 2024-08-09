@@ -1,54 +1,51 @@
-"use client";
-import React, { useEffect, useState } from "react";
+'use client';
+import React, { useState, useEffect } from "react";
 import { Menu, Send } from "lucide-react";
+import Messages from "./Messages";
 import Sidebar from "./Sidebar";
 import { Drawer } from "antd";
+import { getCurrentUser } from "../../auth";
 import { useChat } from "ai/react";
-import Messages from "./Messages";
-import { getCurrentUser, getUsername } from "../../auth";
 
 function Chatarea() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [username, setUsername] = useState("User");
-  const [authStatus, setAuthStatus] = useState("Checking...");
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({
-      keepLastMessageOnError: true,
-    });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    keepLastMessageOnError: true,
+  });
 
   useEffect(() => {
-    const fetchUsername = async () => {
+    const checkAuth = async () => {
       try {
-        setAuthStatus("Fetching user...");
         const user = await getCurrentUser();
-        console.log("Current user:", user);
-
-        if (user) {
-          setAuthStatus(`User found: ${user.uid}`);
-          const fetchedUsername = await getUsername(user.uid);
-          console.log("Fetched username:", fetchedUsername);
-
-          if (fetchedUsername) {
-            setUsername(fetchedUsername);
-            setAuthStatus("Logged in");
-          } else {
-            setAuthStatus("Username not found in Firestore");
-          }
-        } else {
-          setAuthStatus("No user logged in");
-        }
+        setIsAuthenticated(!!user);
       } catch (error) {
-        console.error("Error fetching username:", error);
-        setAuthStatus("Error: " + error.message);
+        console.error("Error checking authentication:", error);
+      } finally {
+        setAuthChecked(true);
       }
     };
-
-    fetchUsername();
+    checkAuth();
   }, []);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (isAuthenticated) {
+      handleSubmit(e);
+    } else {
+      alert("Please log in to send messages.");
+    }
+  };
+
+  if (!authChecked) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-chatarea h-full p-5 flex flex-col">
-      <div className="flex justify-between flex-wrap">
+      <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <Menu
             size={20}
@@ -57,16 +54,8 @@ function Chatarea() {
           />
           <h1 className="text-xl font-bold text-yellow-500">AI Chatbot</h1>
         </div>
-        <div>
-          <p className="text-gray-300 text-lg tracking-wider flex items-center gap-1 flex-wrap">
-            Welcome, <span className="text-yellow-500 ">{username}</span>!
-          </p>
-          <span className="text-gray-500 text-sm flex justify-end">{authStatus}</span>
-        </div>
       </div>
       <Drawer
-        className="text-yellow-500"
-        title="AI Chatbot"
         placement="left"
         closable={true}
         onClose={() => setShowSidebar(false)}
@@ -74,21 +63,24 @@ function Chatarea() {
       >
         <Sidebar setShowSidebar={setShowSidebar} />
       </Drawer>
-      <div className="flex-0 h-[85vh] ">
-        <Messages messages={messages} />
+      <div className="flex-0 h-[85vh]">
+        <Messages messages={messages} isLoading={isLoading} />
       </div>
-      <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-4">
+      <form onSubmit={handleFormSubmit} className="flex items-center gap-2 mt-4">
         <input
           type="text"
           value={input}
           onChange={handleInputChange}
           className="flex-1 p-2 border border-gray-300 rounded"
-          placeholder="Type a message..."
+          placeholder={isAuthenticated ? "Type a message..." : "Please log in to chat"}
+          disabled={!isAuthenticated}
         />
         <button
           type="submit"
-          className="p-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-          disabled={isLoading}
+          className={`p-2  text-white rounded ${
+            isAuthenticated ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-gray-300 cursor-not-allowed'
+           }` }
+          disabled={!isAuthenticated || isLoading}
         >
           <Send size={20} />
         </button>
