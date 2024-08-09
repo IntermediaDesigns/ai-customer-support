@@ -57,8 +57,8 @@ function Chatarea() {
           />
           <h1 className="text-xl font-bold text-yellow-500">AI Chatbot</h1>
         </div>
-        <p className="text-gray-300 text-lg tracking-wide">
-          Welcome, <span className="text-yellow-500">{username}</span>! <span className="text-gray-500 text-sm">{authStatus}</span>
+        <p className="text-gray-300 text-lg tracking-wider">
+          Welcome, <span className="text-yellow-500 ">{username}</span>! <span className="text-gray-500 text-sm">{authStatus}</span>
         </p>
       </div>
       <Drawer
@@ -83,7 +83,7 @@ function Chatarea() {
         />
         <button
           type="submit"
-          className="p-2 bg-blue-500 text-white rounded"
+          className="p-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
           disabled={isLoading}
         >
           <Send size={20} />
