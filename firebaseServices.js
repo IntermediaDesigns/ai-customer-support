@@ -145,7 +145,6 @@ export const getSavedChats = async () => {
     return chats;
   } catch (error) {
     console.error("Error fetching saved chats:", error);
-    // If the index isn't ready, fall back to fetching all chats and filtering client-side
     if (error.code === "failed-precondition") {
       const allChatsSnapshot = await getDocs(chatsRef);
       const allChats = allChatsSnapshot.docs.map((doc) => ({

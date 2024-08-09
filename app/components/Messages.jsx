@@ -15,7 +15,7 @@ function Messages({ messages, isLoading, chatId }) {
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return '';
     const date = new Date(timestamp);
-    return date.toLocaleString(); // Or use any other date formatting method you prefer
+    return date.toLocaleString();
   };
 
   const CustomMarkdown = ({ content }) => {
@@ -58,7 +58,6 @@ function Messages({ messages, isLoading, chatId }) {
       console.log("Message added successfully");
     } catch (error) {
       console.error("Failed to add message:", error.message);
-      // Optionally, you can display an error message to the user here
     }
   };
 

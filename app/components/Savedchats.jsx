@@ -17,7 +17,6 @@ function Savedchats({ onChatSelect, onDeleteChat, currentChatId, savedChats }) {
       }
     } catch (error) {
       console.error("Error deleting chat:", error);
-      // Optionally, you can show an error message to the user here
     }
   };
 
