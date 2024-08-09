@@ -9,7 +9,7 @@ import Messages from "./Messages";
 
 function Chatarea() {
   const [showSidebar, setShowSidebar] = React.useState(false);
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     keepLastMessageOnError: true,
   });
 
@@ -29,7 +29,7 @@ function Chatarea() {
 
       <div className="flex flex-col justify-between flex-1">
         
-        <Messages messages={messages} />
+        <Messages messages={messages} isLoading={isLoading} />
 
         <form onSubmit={handleSubmit} className="relative">
           <input
