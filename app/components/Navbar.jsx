@@ -5,7 +5,7 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "../../firebase";
 
-export default function Navbar() {
+export default function Navbar({ color }) {
   const [user, setUser] = useState(null);
   const router = useRouter();
   const auth = getAuth();
@@ -28,38 +28,24 @@ export default function Navbar() {
   };
 
   return (
-    <nav id="navLinks">
-      <a href="/">
-        Home
-      </a>
+    <nav id="navLinks" className={` ${color}`}>
+      <a href="/">Home</a>
       <div>
         {user ? (
-          <div id="navLinks">
-            <a
-              id="navBtn"
-              href="/dashboard"
-            >
+          <div id="navLinks" className={` ${color}`}>
+            <a id="navBtn" href="/dashboard">
               Dashboard
             </a>
-            <button
-              id="navBtn"
-              onClick={handleLogout}
-            >
+            <button id="navBtn" onClick={handleLogout}>
               Logout
             </button>
           </div>
         ) : (
-          <div id="navLinks">
-            <a
-              id="navBtn"
-              href="/login"
-            >
+          <div id="navLinks" className={`${color}`}>
+            <a id="navBtn" href="/login">
               Login
             </a>
-            <a
-              id="navBtn"
-              href="/signup"
-            >
+            <a id="navBtn" href="/signup">
               Sign Up
             </a>
           </div>

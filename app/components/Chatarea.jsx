@@ -1,17 +1,50 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, Send } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { Drawer } from "antd";
 import { useChat } from "ai/react";
 import Messages from "./Messages";
+import { getCurrentUser, getUsername } from "../../auth";
 
 function Chatarea() {
-  const [showSidebar, setShowSidebar] = React.useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [username, setUsername] = useState("User");
+  const [authStatus, setAuthStatus] = useState("Checking...");
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
       keepLastMessageOnError: true,
     });
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        setAuthStatus("Fetching user...");
+        const user = await getCurrentUser();
+        console.log("Current user:", user);
+
+        if (user) {
+          setAuthStatus(`User found: ${user.uid}`);
+          const fetchedUsername = await getUsername(user.uid);
+          console.log("Fetched username:", fetchedUsername);
+
+          if (fetchedUsername) {
+            setUsername(fetchedUsername);
+            setAuthStatus("Logged in");
+          } else {
+            setAuthStatus("Username not found in Firestore");
+          }
+        } else {
+          setAuthStatus("No user logged in");
+        }
+      } catch (error) {
+        console.error("Error fetching username:", error);
+        setAuthStatus("Error: " + error.message);
+      }
+    };
+
+    fetchUsername();
+  }, []);
 
   return (
     <div className="bg-chatarea h-full p-5 flex flex-col">
@@ -24,42 +57,40 @@ function Chatarea() {
           />
           <h1 className="text-xl font-bold text-yellow-500">AI Chatbot</h1>
         </div>
-        <p>Welcome, User!</p>
+        <p className="text-gray-300 text-lg tracking-wide">
+          Welcome, <span className="text-yellow-500">{username}</span>! <span className="text-gray-500 text-sm">{authStatus}</span>
+        </p>
       </div>
-
-      <div className="flex flex-col justify-between flex-1 pb-16">
-        <Messages messages={messages} isLoading={isLoading} />
-
-        <form onSubmit={handleSubmit} className="relative">
-          <input
-            name="prompt"
-            value={input}
-            placeholder="Type a message..."
-            onChange={handleInputChange}
-            className="bg-sidebar p-5 w-full focus:outline-none focus:border-gray-500 focus:border rounded text-gray-300"
-          />
-          <button type="submit">
-            <Send
-              size={20}
-              className="text-white absolute right-5 top-5 cursor-pointer"
-            />
-          </button>
-        </form>
+      <Drawer
+        // title="Chatbot"
+        placement="left"
+        closable={true}
+        onClose={() => setShowSidebar(false)}
+        open={showSidebar}
+      >
+        <Sidebar setShowSidebar={setShowSidebar} />
+      </Drawer>
+      <div className="flex-1 overflow-y-auto">
+        <Messages messages={messages} />
       </div>
-
-      {showSidebar && (
-        <Drawer
-          onClose={() => setShowSidebar(false)}
-          open={showSidebar}
-          placement="left"
+      <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-4">
+        <input
+          type="text"
+          value={input}
+          onChange={handleInputChange}
+          className="flex-1 p-2 border border-gray-300 rounded"
+          placeholder="Type a message..."
+        />
+        <button
+          type="submit"
+          className="p-2 bg-blue-500 text-white rounded"
+          disabled={isLoading}
         >
-          <Sidebar setShowSidebar={setShowSidebar} />
-        </Drawer>
-      )}
+          <Send size={20} />
+        </button>
+      </form>
     </div>
   );
 }
-
-
 
 export default Chatarea;

@@ -8,6 +8,7 @@ import Footer from "./Footer";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -44,6 +45,15 @@ export default function Signup() {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input

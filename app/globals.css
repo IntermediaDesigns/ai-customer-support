@@ -27,7 +27,6 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
- 
 }
 
 nav button {
@@ -38,7 +37,8 @@ nav button {
 }
 
 nav button:hover {
-  color: blue;
+  color: goldenrod;
+  transform: scale(1.1);
 }
 
 #navLinks {
@@ -47,7 +47,8 @@ nav button:hover {
 }
 
 #navLinks a:hover {
-  color: blue;
+  color: goldenrod;
+  transform: scale(1.1);
 }
 
 /* Sidebar Drawer */
@@ -57,4 +58,14 @@ nav button:hover {
 
 .anticon-close {
   color: #fff !important;
+}
+
+.anticon-close:hover {
+  color: goldenrod !important;
+  transform: scale(1.1) !important;
+}
+
+.ant-drawer-body {
+  padding: 0 !important;
+  margin: 0 !important;
 }
