@@ -1,8 +1,10 @@
 import React from "react";
+import Navbar from "./Navbar";
 
 export default function Frontpage() {
   return (
     <>
+    <Navbar />
       <section>
         <div>
           <h1>AI Chat Support</h1>

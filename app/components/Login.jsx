@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "../../auth";
-import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 export default function Login({ searchParams }) {
@@ -35,7 +34,6 @@ export default function Login({ searchParams }) {
 
   return (
     <>
-      <Navbar />
       <div>
         <h1>Log In</h1>
         {successMessage && (

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import { signUp } from "../../auth";
 import { useRouter } from "next/navigation";
-import Navbar from "./Navbar";
+
 import "../globals.css";
 import Footer from "./Footer";
 
@@ -34,7 +34,6 @@ export default function Signup() {
 
   return (
     <>
-      <Navbar />
       <div>
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
