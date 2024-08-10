@@ -169,7 +169,7 @@ function Chatarea({
           savedChats={savedChats}
         />
       </Drawer>
-      <div className="flex-1 overflow-y-auto mt-4">
+      <div className="block h-[85vh] mt-4">
         <Messages
           messages={localMessages}
           isLoading={isLoading}
