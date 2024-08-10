@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { signUp } from "../../auth";
 import { useRouter } from "next/navigation";
+import { FaEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
 
 import "../globals.css";
 import Footer from "./Footer";
@@ -12,6 +14,8 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [pw1Visible, setPw1Visible] = useState(false);
+  const [pw2Visible, setPw2Visible] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -35,10 +39,20 @@ export default function Signup() {
 
   return (
     <>
-      <div>
-        <h1>Sign Up</h1>
-        <form onSubmit={handleSubmit}>
+      <div className="flex flex-col items-center justify-center gap-8">
+        <img
+          className="h-36 mt-10"
+          src="robot-dark.png"
+          alt="Cute green chatbot"
+        />
+        <h1 className="text-4xl font-bold py-2">Sign up for an account</h1>
+        {error && <p>{error}</p>}
+        <form
+          className="flex flex-col gap-2 w-1/2 max-w-96"
+          onSubmit={handleSubmit}
+        >
           <input
+            className="border border-slate-600 px-2 w-full"
             type="text"
             name="username"
             id="username"
@@ -48,6 +62,7 @@ export default function Signup() {
             required
           />
           <input
+            className="border border-slate-600 px-2 w-full"
             type="email"
             name="email"
             id="email"
@@ -56,31 +71,63 @@ export default function Signup() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-          {error && <p>{error}</p>}
-          <button type="submit">Sign Up</button>
+          <div className="w-full">
+            <input
+              className="border border-slate-600 px-2 w-5/6 mr-2"
+              type={pw1Visible ? "text" : "password"}
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              aria-label="password visibility"
+              type="button"
+              onClick={() => {
+                setPw1Visible(!pw1Visible);
+              }}
+            >
+              {pw1Visible ? <FaEye /> : <IoMdEyeOff />}
+            </button>
+          </div>
+          <div className="w-full">
+            <input
+              className="border border-slate-600 px-2 w-5/6 mr-2"
+              type={pw2Visible ? "text" : "password"}
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <button
+              aria-label="password visibility"
+              type="button"
+              onClick={() => {
+                setPw2Visible(!pw2Visible);
+              }}
+            >
+              {pw2Visible ? <FaEye /> : <IoMdEyeOff />}
+            </button>
+          </div>
+
+          <button
+            className="font-semibold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md"
+            type="submit"
+          >
+            Sign Up
+          </button>
         </form>
         <div>
           <p>
             Already have an account?
-            <a href="/login"> Log In</a>
+            <a className="font-bold" href="/login">
+              {" "}
+              Log In
+            </a>
           </p>
         </div>
       </div>

@@ -38,7 +38,10 @@ function Chatarea({
       if (currentChatId) {
         const messageWithTimestamp = { ...message, timestamp: new Date() };
         await addMessageToChat(currentChatId, message.content, message.role);
-        setLocalMessages((prevMessages) => [...prevMessages, messageWithTimestamp]);
+        setLocalMessages((prevMessages) => [
+          ...prevMessages,
+          messageWithTimestamp,
+        ]);
       }
     },
   });
