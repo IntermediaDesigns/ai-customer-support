@@ -82,7 +82,7 @@ export default function Login({ searchParams }) {
             </button>
           </div>
           <button
-            className="font-semibold text-white border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md"
+            className="font-semibold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md"
             type="submit"
           >
             Login

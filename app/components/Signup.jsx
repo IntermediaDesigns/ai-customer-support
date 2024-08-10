@@ -46,6 +46,7 @@ export default function Signup() {
           alt="Cute green chatbot"
         />
         <h1 className="text-4xl font-bold py-2">Sign up for an account</h1>
+        {error && <p>{error}</p>}
         <form
           className="flex flex-col gap-2 w-1/2 max-w-96"
           onSubmit={handleSubmit}
@@ -112,9 +113,9 @@ export default function Signup() {
               {pw2Visible ? <FaEye /> : <IoMdEyeOff />}
             </button>
           </div>
-          {error && <p>{error}</p>}
+
           <button
-            className="font-semibold text-white border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md"
+            className="font-semibold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md"
             type="submit"
           >
             Sign Up

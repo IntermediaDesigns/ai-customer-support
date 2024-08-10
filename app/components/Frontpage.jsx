@@ -24,12 +24,12 @@ export default function Frontpage() {
           </p>
         </div>
         <div className="flex gap-4">
-          <button className="font-bold text-white border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md">
+          <button className="font-bold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md w-32">
             <a id="navBtn" href="/login">
               Login
             </a>
           </button>
-          <button className="font-bold text-white border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md">
+          <button className="font-bold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md w-32">
             <a id="navBtn" href="/signup">
               Sign Up
             </a>
