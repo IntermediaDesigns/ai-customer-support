@@ -41,7 +41,7 @@ footer {
 
 /* Navbar */
 nav {
-  background-color: #191A1A;
+  background-color: #191a1a;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -92,7 +92,8 @@ nav button:hover {
 
 /* Markdown */
 .markdown ul,
-.markdown ol, .markdown li {
+.markdown ol,
+.markdown li {
   margin-bottom: 1em;
   list-style: circle;
 }

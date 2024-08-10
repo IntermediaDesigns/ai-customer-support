@@ -11,7 +11,7 @@
   "dependencies": {
     "@ai-sdk/google": "^0.0.35",
     "accept-language": "^3.0.18",
-    "ai": "^3.3.4",
+    "ai": "^3.3.5",
     "antd": "^5.20.0",
     "crypto-js": "^4.2.0",
     "firebase": "^10.12.5",
@@ -24,6 +24,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.1",
+    "react-icons": "^5.2.1",
     "react-markdown": "^9.0.1",
     "rehype-raw": "^7.0.0"
   },
