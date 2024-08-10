@@ -52,7 +52,7 @@ function Chatarea({
       }
     };
     loadMessages();
-  }, [currentChatId]);
+  }, [currentChatId, setMessages]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -169,7 +169,7 @@ function Chatarea({
           savedChats={savedChats}
         />
       </Drawer>
-      <div className="block h-[85vh] mt-4">
+      <div className="block h-screen mt-4 ">
         <Messages
           messages={localMessages}
           isLoading={isLoading}

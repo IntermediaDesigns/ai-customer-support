@@ -69,10 +69,7 @@ export const getChatMessages = async (chatId) => {
       id: doc.id,
       content: data.content,
       role: data.role,
-      timestamp:
-        data.timestamp instanceof Timestamp
-          ? data.timestamp.toDate()
-          : new Date(data.timestamp),
+      timestamp: data.timestamp ? data.timestamp.toDate() : new Date(),
     };
   });
 

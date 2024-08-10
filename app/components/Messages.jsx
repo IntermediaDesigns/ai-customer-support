@@ -88,21 +88,29 @@ function Messages({ messages, isLoading, chatId }) {
       {messages.filter(message => message != null).map((message, index) => {
         if (message.role === "user") {
           return (
-            <div key={message.id || index} className="flex justify-end">
+            <div key={message.id || index} className="flex flex-col items-end">
               <div className="bg-gray-800 p-4 rounded-lg first-letter:capitalize">
                 <span>{message.content}</span>
               </div>
+              <span className="text-xs text-gray-500 mt-1">
+                {formatTimestamp(message.timestamp)}
+              </span>
             </div>
           );
         }
         return (
-          <div key={message.id || index} className="flex gap-2">
-            <Bot
-              size={16}
-              className="text-yellow-500 border-gray-300 rounded-full h-6 w-6 flex items-center justify-center"
-            />
-            <span className="flex-1">
-              <CustomMarkdown content={message.content} />
+          <div key={message.id || index} className="flex flex-col">
+            <div className="flex gap-2">
+              <Bot
+                size={16}
+                className="text-yellow-500 border-gray-300 rounded-full h-6 w-6 flex items-center justify-center"
+              />
+              <span className="flex-1">
+                <CustomMarkdown content={message.content} />
+              </span>
+            </div>
+            <span className="text-xs text-gray-500 mt-1 ml-8">
+              {formatTimestamp(message.timestamp)}
             </span>
           </div>
         );
