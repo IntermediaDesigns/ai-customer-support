@@ -128,7 +128,7 @@ function Chatarea({
   };
 
   return (
-    <div className="bg-chatarea h-full p-5 flex flex-col">
+    <div className="chatarea bg-chatarea p-5 flex flex-col">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Menu
@@ -169,7 +169,7 @@ function Chatarea({
           savedChats={savedChats}
         />
       </Drawer>
-      <div className="block h-screen mt-4 ">
+      <div className="block h-auto mt-4 ">
         <Messages
           messages={localMessages}
           isLoading={isLoading}

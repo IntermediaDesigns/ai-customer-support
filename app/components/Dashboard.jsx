@@ -54,7 +54,7 @@ export default function Dashboard({ color }) {
   };
 
   return (
-    <div className="flex h-max">
+    <div className="dashboard flex h-full">
       <div className="w-80 hidden lg:block">
         <Sidebar
           onChatSelect={handleChatSelect}
@@ -63,7 +63,7 @@ export default function Dashboard({ color }) {
           savedChats={savedChats}
         />
       </div>
-      <div className="h-max w-full flex flex-col ">
+      <div className="h-full w-full flex flex-col ">
         <div className="hidden md:block">
           <Navbar color={`flex`} />
         </div>

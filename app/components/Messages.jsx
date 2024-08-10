@@ -67,7 +67,7 @@ function Messages({ messages, isLoading, chatId }) {
 
   if (messages.length === 0) {
     return (
-      <div className="h-[75vh] flex items-center justify-center">
+      <div className="h-[85vh] flex items-center justify-center">
         <div className="flex flex-col text-gray-400 text-xl font-semibold tracking-wide">
           <span>
             Hello,{" "}
@@ -84,7 +84,7 @@ function Messages({ messages, isLoading, chatId }) {
   }
 
   return (
-    <div className="flex flex-col gap-7 text-gray-300 mt-7 text-sm">
+    <div className="messages flex flex-col gap-7 text-gray-300 mt-7 text-sm">
       {messages.filter(message => message != null).map((message, index) => {
         if (message.role === "user") {
           return (

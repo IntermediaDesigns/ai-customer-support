@@ -22,7 +22,7 @@ function Savedchats({ onChatSelect, onDeleteChat, currentChatId, savedChats }) {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 h-full">
       <p className="text-white font-semibold tracking-wider text-xl">
         Saved Chats
       </p>
