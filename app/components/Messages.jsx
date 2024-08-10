@@ -11,6 +11,7 @@ function Messages({ messages, isLoading, chatId }) {
   const [authStatus, setAuthStatus] = useState("Checking...");
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const sortedMessages = [...messages].sort((a, b) => a.timestamp - b.timestamp);
 
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return "";
@@ -85,7 +86,7 @@ function Messages({ messages, isLoading, chatId }) {
 
   return (
     <div className="messages flex flex-col gap-7 text-gray-300 mt-7 text-sm">
-      {messages.filter(message => message != null).map((message, index) => {
+      {sortedMessages.filter(message => message != null).map((message, index) => {
         if (message.role === "user") {
           return (
             <div key={message.id || index} className="flex flex-col items-end">

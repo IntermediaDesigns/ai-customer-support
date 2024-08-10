@@ -103,10 +103,17 @@ export const saveChat = async (chatId, messages) => {
 
   const chatRef = doc(db, "users", user.uid, "chats", chatId);
 
-  const title =
-    messages.length > 0
-      ? messages[0].content.split(" ").slice(0, 5).join(" ") + "..."
-      : "New Chat";
+  // Ensure a user message is first
+  const userMessageIndex = messages.findIndex(msg => msg.role === 'user');
+  if (userMessageIndex > 0) {
+    const firstUserMessage = messages[userMessageIndex];
+    messages.splice(userMessageIndex, 1);
+    messages.unshift(firstUserMessage);
+  }
+
+  const title = messages.length > 0
+    ? messages[0].content.split(" ").slice(0, 5).join(" ") + "..."
+    : "New Chat";
 
   await setDoc(
     chatRef,

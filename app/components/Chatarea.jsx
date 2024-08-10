@@ -36,8 +36,9 @@ function Chatarea({
     keepLastMessageOnError: true,
     onFinish: async (message) => {
       if (currentChatId) {
+        const messageWithTimestamp = { ...message, timestamp: new Date() };
         await addMessageToChat(currentChatId, message.content, message.role);
-        setLocalMessages((prevMessages) => [...prevMessages, message]);
+        setLocalMessages((prevMessages) => [...prevMessages, messageWithTimestamp]);
       }
     },
   });
@@ -57,15 +58,22 @@ function Chatarea({
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (isAuthenticated && currentChatId) {
-      const userMessage = { role: "user", content: input };
+      const userMessage = {
+        role: "user",
+        content: input,
+        timestamp: new Date(),
+      };
       setLocalMessages((prevMessages) => [...prevMessages, userMessage]);
       await addMessageToChat(currentChatId, input, "user");
 
       // Clear input immediately after sending
       handleInputChange({ target: { value: "" } });
 
-      // Use handleSubmit to trigger AI response
-      await handleSubmit(e);
+      // Add a delay before the assistant's response
+      setTimeout(async () => {
+        // Use handleSubmit to trigger AI response
+        await handleSubmit(e);
+      }, 2000); // 2 second delay
     } else {
       alert("Please log in to send messages.");
     }
@@ -86,9 +94,20 @@ function Chatarea({
           ...msg,
           timestamp: msg.timestamp || new Date(),
         }));
+
+        // Ensure a user message is first
+        const userMessageIndex = messagesToSave.findIndex(
+          (msg) => msg.role === "user"
+        );
+        if (userMessageIndex > 0) {
+          const firstUserMessage = messagesToSave[userMessageIndex];
+          messagesToSave.splice(userMessageIndex, 1);
+          messagesToSave.unshift(firstUserMessage);
+        }
+
         await saveChat(currentChatId, messagesToSave);
         const title =
-          localMessages[0].content.split(" ").slice(0, 5).join(" ") + "...";
+          messagesToSave[0].content.split(" ").slice(0, 5).join(" ") + "...";
 
         const newChat = {
           id: currentChatId,
