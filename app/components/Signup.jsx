@@ -56,7 +56,7 @@ export default function Signup() {
           width={100}
           height={144}
         />
-        <h1 className="text-4xl font-bold py-2 text-wrap text-center">Sign up for an account</h1>
+        <h1 className="text-4xl font-bold py-2 text-wrap text-center ">Sign up for an account</h1>
         {error && <p>{error}</p>}
         <form
           className="flex flex-col gap-2 w-1/2 max-w-96"
