@@ -109,7 +109,7 @@ export default function Signup() {
                 {pw1Visible ? <FaEye /> : <IoMdEyeOff />}
               </button>
             </div>
-            <div className="flex">
+            <div className="flex mb-4">
               <input
                 className="border border-slate-600 px-2 w-full mr-2"
                 type={pw2Visible ? "text" : "password"}
