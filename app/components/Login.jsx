@@ -37,7 +37,8 @@ export default function Login({ searchParams }) {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-8">
+    <nav id="navLinks"><a href="/">Home</a></nav>
+      <div className="flex flex-col items-center justify-center gap-8 border border-solid border-gray-200 shadow-xl w-1/3 rounded-xl py-12 mt-20 ml-auto mr-auto">
         <img
           className="h-36 mt-10"
           src="robot-dark.png"
@@ -60,9 +61,9 @@ export default function Login({ searchParams }) {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <div>
+          <div className="flex">
             <input
-              className="border border-slate-600 px-2 w-5/6 mr-2"
+              className="border border-slate-600 px-2 w-full mr-2"
               type={pwVisible ? "text" : "password"}
               name="password"
               id="password"
