@@ -119,7 +119,7 @@ export default function Signup() {
           </div>
 
           <button
-            className="font-semibold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md"
+            className="font-semibold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md hover:bg-green-500"
             type="submit"
           >
             Sign Up

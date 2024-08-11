@@ -28,12 +28,12 @@ export default function Frontpage() {
             </p>
 
             <div className="flex gap-4">
-              <button className="font-bold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md w-32">
+              <button className="font-bold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md w-32 hover:bg-green-500">
                 <a id="navBtn" href="/login">
                   Login
                 </a>
               </button>
-              <button className="font-bold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md w-32">
+              <button className="font-bold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md w-32 hover:bg-green-500">
                 <a id="navBtn" href="/signup">
                   Sign Up
                 </a>
