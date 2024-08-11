@@ -11,22 +11,24 @@
 
 /* Chat area specific styles */
 .chatarea {
-  height: 100%;
+  height: auto;
+  min-height: 953px;
 }
 
-.dashboard {
+/* .dashboard {
   height: 100%;
-}
+} */
 
-.messages {
+/* .messages {
+  height: auto;
   height: auto;
   min-height: 100vh;
   margin-right: 2rem;
-}
+} */
 
-form {
+/* form {
   height: 50%;
-}
+} */
 
 /* Footer */
 footer {

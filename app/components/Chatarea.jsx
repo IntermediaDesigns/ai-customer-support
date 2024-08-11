@@ -12,7 +12,7 @@ import {
   saveChat,
   deleteChat,
 } from "../../firebaseServices";
-// import { delay } from '../../utils';
+import Image from "next/image";
 
 function Chatarea({
   currentChatId,
@@ -150,15 +150,23 @@ function Chatarea({
   };
 
   return (
-    <div className="chatarea bg-chatarea p-5 flex flex-col">
-      <div className="flex justify-between items-center">
+    <div className="chatarea bg-chatarea px-5 flex flex-col">
+      <div className="flex justify-between items-start m-2">
         <div className="flex items-center gap-2">
           <Menu
             size={20}
             className="text-white flex lg:hidden cursor-pointer"
             onClick={() => setShowSidebar(true)}
           />
-          <h1 className="text-xl font-bold text-yellow-500">AI Chatbot</h1>
+          <h1 className="flex items-center gap-6 text-xl font-bold text-yellow-500">
+            <Image
+              src="/robot-light.png"
+              alt="Cute green chatbot"
+              width={30}
+              height={72}
+            />
+            <p>AI Chatbot</p>
+          </h1>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -191,39 +199,43 @@ function Chatarea({
           savedChats={savedChats}
         />
       </Drawer>
-      <div className="block h-auto mt-4 ">
-        <Messages
-          messages={localMessages}
-          isLoading={isLoading}
-          chatId={currentChatId}
-        />
+      <div className="flex flex-col gap-4 justify-between min-h-[90vh]">
+        <div className="block h-auto mt-4 ">
+          <Messages
+            messages={localMessages}
+            isLoading={isLoading}
+            chatId={currentChatId}
+          />
+        </div>
+        <div>
+          <form
+            onSubmit={handleFormSubmit}
+            className="flex items-center gap-2 h-16"
+          >
+            <input
+              type="text"
+              value={input}
+              onChange={handleInputChange}
+              className="flex-1 p-2 border border-gray-300 rounded"
+              placeholder={
+                isAuthenticated ? "Type a message..." : "Please log in to chat"
+              }
+              disabled={!isAuthenticated}
+            />
+            <button
+              type="submit"
+              className={`p-2 text-white rounded ${
+                isAuthenticated
+                  ? "bg-yellow-500 hover:bg-yellow-600"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+              disabled={!isAuthenticated || isLoading}
+            >
+              <Send size={20} />
+            </button>
+          </form>
+        </div>
       </div>
-      <form
-        onSubmit={handleFormSubmit}
-        className="flex items-center gap-2 mt-4"
-      >
-        <input
-          type="text"
-          value={input}
-          onChange={handleInputChange}
-          className="flex-1 p-2 border border-gray-300 rounded"
-          placeholder={
-            isAuthenticated ? "Type a message..." : "Please log in to chat"
-          }
-          disabled={!isAuthenticated}
-        />
-        <button
-          type="submit"
-          className={`p-2 text-white rounded ${
-            isAuthenticated
-              ? "bg-yellow-500 hover:bg-yellow-600"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
-          disabled={!isAuthenticated || isLoading}
-        >
-          <Send size={20} />
-        </button>
-      </form>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { getCurrentUser, getUsername } from "../../auth";
 import { addMessageToChat } from "../../firebaseServices";
 
 function Messages({ messages, isLoading, chatId }) {
-  const [username, setUsername] = useState("Guest");
+  const [username, setUsername] = useState("guest");
   const [authStatus, setAuthStatus] = useState("Checking...");
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,6 +41,7 @@ function Messages({ messages, isLoading, chatId }) {
           setIsAuthenticated(true);
         } else {
           setAuthStatus("Not Authenticated");
+          setUsername("guest");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -68,16 +69,16 @@ function Messages({ messages, isLoading, chatId }) {
 
   if (messages.length === 0) {
     return (
-      <div className="h-[85vh] flex items-center justify-center">
+      <div className="h-[83vh] flex items-center justify-center">
         <div className="flex flex-col text-gray-400 text-xl font-semibold tracking-wide">
           <span>
-            Hello,{" "}
-            <span className="text-yellow-500 tracking-wider">{username}</span>!
+            Hello,
+            <span className="text-yellow-500 tracking-wider"> {username}</span>!
           </span>
           <span>
             {isAuthenticated
               ? "I am your personal AI Chatbot assistant. How can I help you today?"
-              : "I am your personal assistant, do you need help? If so, please log in so I can assist you."}
+              : "I am your personal assistant. Please log in so I can assist you better."}
           </span>
         </div>
       </div>
