@@ -40,8 +40,15 @@ export default function Signup() {
 
   return (
     <>
-    <nav id="navLinks"><a href="/">Home</a></nav>
-      <div className="flex flex-col items-center justify-center gap-8 border border-solid border-gray-200 shadow-xl w-3/4 rounded-xl py-12 mt-20 ml-auto mr-auto lg:w-1/3 ">
+    <section className="flex flex-col items-start justify-start" style={{
+          backgroundImage: 'url("/frontbg.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          height: '100vh',
+        }}>
+          <nav className="w-full" id="navLinks"><a href="/">Home</a></nav>
+      <div className="flex flex-col items-center justify-center gap-8 bg-white border border-solid border-gray-200 shadow-xl w-3/4 rounded-xl py-12 mt-20 ml-auto mr-auto lg:w-1/3 ">
         <Image
           className="h-36 mt-10"
           src="/robot-dark.png"
@@ -135,6 +142,7 @@ export default function Signup() {
           </p>
         </div>
       </div>
+      </section>
       <Footer />
     </>
   );
