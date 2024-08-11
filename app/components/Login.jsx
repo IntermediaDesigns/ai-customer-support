@@ -5,6 +5,7 @@ import { signIn } from "../../auth";
 import Footer from "./Footer";
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
+import Image from "next/image";
 
 export default function Login({ searchParams }) {
   const [username, setUsername] = useState("");
@@ -38,11 +39,13 @@ export default function Login({ searchParams }) {
   return (
     <>
     <nav id="navLinks"><a href="/">Home</a></nav>
-      <div className="flex flex-col items-center justify-center gap-8 border border-solid border-gray-200 shadow-xl w-1/3 rounded-xl py-12 mt-20 ml-auto mr-auto">
-        <img
+      <div className="flex flex-col items-center justify-center gap-8 border border-solid border-gray-200 shadow-xl w-3/4 rounded-xl py-12 mt-20 ml-auto mr-auto lg:w-1/3">
+        <Image
           className="h-36 mt-10"
-          src="robot-dark.png"
+          src="/robot-dark.png"
           alt="Cute green chatbot"
+          width={100}
+          height={144}
         />
         <h1 className="text-4xl font-bold py-2">Log In</h1>
         {successMessage && <p>{successMessage}</p>}
@@ -90,9 +93,9 @@ export default function Login({ searchParams }) {
           </button>
         </form>
         <div>
-          <p>
+          <p id="navLinks">
             Need an account?
-            <a className="font-bold" href="/signup">
+            <a className="font-bold" href="/signup" >
               {" "}
               Sign Up
             </a>

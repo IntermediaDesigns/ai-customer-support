@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 export default function Frontpage() {
   return (
@@ -6,10 +7,12 @@ export default function Frontpage() {
       <section className="flex flex-col items-center justify-center gap-6">
         <div className="flex flex-col items-center justify-center text-center w-full">
           <div className="flex gap-6 justify-center items-center text-white bg-chatarea w-full py-6 flex-wrap text-wrap">
-            <img
+            <Image
               className="h-36"
-              src="robot-light.png"
+              src="/robot-light.png"
               alt="Cute green chatbot"
+              width={100}
+              height={144}
             />
             <h1 className="text-8xl font-extrabold">AI Chat Support</h1>
           </div>
