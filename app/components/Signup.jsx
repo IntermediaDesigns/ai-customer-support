@@ -40,108 +40,114 @@ export default function Signup() {
 
   return (
     <>
-    <section className="flex flex-col items-start justify-start" style={{
+      <section
+        className="flex flex-col items-start justify-start"
+        style={{
           backgroundImage: 'url("/frontbg.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          height: '100vh',
-        }}>
-          <nav className="w-full" id="navLinks"><a href="/">Home</a></nav>
-      <div className="flex flex-col items-center justify-center gap-8 bg-white border border-solid border-gray-200 shadow-xl w-3/4 rounded-xl py-12 mt-20 ml-auto mr-auto lg:w-1/3 ">
-        <Image
-          className="h-36 mt-10"
-          src="/robot-dark.png"
-          alt="Cute green chatbot"
-          width={100}
-          height={144}
-        />
-        <h1 className="text-4xl font-bold py-2 text-wrap text-center ">Sign up for an account</h1>
-        {error && <p>{error}</p>}
-        <form
-          className="flex flex-col gap-2 w-1/2 max-w-96"
-          onSubmit={handleSubmit}
-        >
-          <input
-            className="border border-slate-600 px-2 w-full"
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "100vh",
+        }}
+      >
+        <nav className="w-full" id="navLinks">
+          <a href="/">Home</a>
+        </nav>
+        <div className="flex flex-col items-center justify-center gap-8 bg-white border border-solid border-gray-200 shadow-xl w-3/4 rounded-xl py-12 mt-20 ml-auto mr-auto lg:w-1/3 ">
+          <Image
+            src="/robot-dark.png"
+            alt="Cute green chatbot"
+            width={150}
+            height={216}
           />
-          <input
-            className="border border-slate-600 px-2 w-full"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <div className="flex">
-            <input
-              className="border border-slate-600 px-2 w-full mr-2"
-              type={pw1Visible ? "text" : "password"}
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button
-              aria-label="password visibility"
-              type="button"
-              onClick={() => {
-                setPw1Visible(!pw1Visible);
-              }}
-            >
-              {pw1Visible ? <FaEye /> : <IoMdEyeOff />}
-            </button>
-          </div>
-          <div className="flex">
-            <input
-              className="border border-slate-600 px-2 w-full mr-2"
-              type={pw2Visible ? "text" : "password"}
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            <button
-              aria-label="password visibility"
-              type="button"
-              onClick={() => {
-                setPw2Visible(!pw2Visible);
-              }}
-            >
-              {pw2Visible ? <FaEye /> : <IoMdEyeOff />}
-            </button>
-          </div>
-
-          <button
-            className="font-semibold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md hover:bg-green-500"
-            type="submit"
+          <h1 className="text-4xl font-bold py-2 text-wrap text-center ">
+            Sign up for an account
+          </h1>
+          {error && <p>{error}</p>}
+          <form
+            className="flex flex-col gap-2 w-1/2 max-w-96"
+            onSubmit={handleSubmit}
           >
-            Sign Up
-          </button>
-        </form>
-        <div>
-          <p id="navLinks">
-            Already have an account?
-            <a className="font-bold" href="/login">
-              {" "}
-              Log In
-            </a>
-          </p>
+            <input
+              className="border border-slate-600 px-2 w-full"
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <input
+              className="border border-slate-600 px-2 w-full"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <div className="flex">
+              <input
+                className="border border-slate-600 px-2 w-full mr-2"
+                type={pw1Visible ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                aria-label="password visibility"
+                type="button"
+                onClick={() => {
+                  setPw1Visible(!pw1Visible);
+                }}
+              >
+                {pw1Visible ? <FaEye /> : <IoMdEyeOff />}
+              </button>
+            </div>
+            <div className="flex mb-4">
+              <input
+                className="border border-slate-600 px-2 w-full mr-2"
+                type={pw2Visible ? "text" : "password"}
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              <button
+                aria-label="password visibility"
+                type="button"
+                onClick={() => {
+                  setPw2Visible(!pw2Visible);
+                }}
+              >
+                {pw2Visible ? <FaEye /> : <IoMdEyeOff />}
+              </button>
+            </div>
+
+            <button
+              className="font-semibold text-white text-lg border border-black shadow-md shadow-black bg-green-700 px-4 py-2 rounded-md hover:bg-green-500"
+              type="submit"
+            >
+              Sign Up
+            </button>
+          </form>
+          <div>
+            <p id="navLinks">
+              Already have an account?
+              <a className="font-bold" href="/login">
+                {" "}
+                Log In
+              </a>
+            </p>
+          </div>
         </div>
-      </div>
       </section>
       <Footer />
     </>

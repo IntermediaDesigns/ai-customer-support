@@ -4,17 +4,19 @@ import Image from "next/image";
 export default function Frontpage() {
   return (
     <>
-      <section className="flex flex-col items-start justify-start gap-6" style={{
+      <section
+        className="flex flex-col items-start justify-start gap-6"
+        style={{
           backgroundImage: 'url("/frontbg.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          height: '100vh',
-        }}>
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "100vh",
+        }}
+      >
         <div className="flex flex-col items-center justify-center text-center w-full">
           <div className="flex gap-6 justify-center items-center text-white bg-chatarea w-full py-6 flex-wrap text-wrap">
             <Image
-              className="h-36"
               src="/robot-light.png"
               alt="Cute green chatbot"
               width={100}
