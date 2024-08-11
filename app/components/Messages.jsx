@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import { Bot } from "lucide-react";
 import Markdown from "react-markdown";
@@ -36,12 +35,21 @@ function Messages({ messages, isLoading, chatId }) {
         const user = await getCurrentUser();
         if (user) {
           const fetchedUsername = await getUsername(user.uid);
-          setUsername(fetchedUsername || "User");
-          setAuthStatus("Authenticated");
-          setIsAuthenticated(true);
+          console.log("Fetched username:", fetchedUsername);
+          if (fetchedUsername) {
+            setUsername(fetchedUsername);
+            setAuthStatus("Authenticated");
+            setIsAuthenticated(true);
+          } else {
+            console.error("Username not found for authenticated user");
+            setUsername("User");
+            setAuthStatus("Authenticated but username not found");
+            setIsAuthenticated(true);
+          }
         } else {
           setAuthStatus("Not Authenticated");
           setUsername("guest");
+          setIsAuthenticated(false);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -73,7 +81,7 @@ function Messages({ messages, isLoading, chatId }) {
         <div className="flex flex-col text-gray-400 text-xl font-semibold tracking-wide">
           <span>
             Hello,
-            <span className="text-yellow-500 tracking-wider"> {username}</span>!
+            <span className="text-yellow-500 tracking-wider"> {isAuthenticated ? username : "guest"}</span>!
           </span>
           <span>
             {isAuthenticated
