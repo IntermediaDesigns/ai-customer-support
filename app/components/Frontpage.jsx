@@ -16,7 +16,7 @@ export default function Frontpage() {
             />
             <h1 className="text-8xl font-extrabold">AI Chat Support</h1>
           </div>
-          <div className="flex flex-col items-center justify-center gap-6 border border-solid border-gray-200 shadow-xl w-3/4 py-12 rounded-xl mt-48 lg:max-w-4xl">
+          <div className="flex flex-col items-center justify-center gap-6 border border-solid border-gray-200 shadow-xl w-3/4 py-12 rounded-xl mt-32 lg:max-w-4xl">
             <h3 className="text-3xl font-semibold py-2 w-3/4">
               Never Lose a Word: Save Your Chats with Ease.
             </h3>
